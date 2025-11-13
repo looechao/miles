@@ -16,8 +16,8 @@ const getBasePath = () => {
 
 const data: ISiteMetadataResult = {
   siteTitle: "looechao's miles",
-  siteUrl: 'https://looechao.github.io/running_page/',
-  logo: 'https://raw.githubusercontent.com/looechao/looechao.github.io/refs/heads/main/images/profile.png',
+  siteUrl: 'https://looechao.github.io/miles/',
+  logo: 'https://static.looechao.com/profile/profile-purple.png/profile.png',
   description: 'Personal site and blog',
   navLinks: [
     {

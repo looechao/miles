@@ -67,13 +67,14 @@ class CircularDrawer(TracksDrawer):
         self._ring_color = args.circular_ring_color
 
     def draw(self, dr: svgwrite.Drawing, size: XY, offset: XY):
-        dr.add(
-            dr.rect(
-                insert=offset.tuple(),
-                size=size.tuple(),
-                fill=self.poster.colors["background"],
-            )
-        )
+        # Background rect removed for transparent background
+        # dr.add(
+        #     dr.rect(
+        #         insert=offset.tuple(),
+        #         size=size.tuple(),
+        #         fill=self.poster.colors["background"],
+        #     )
+        # )
         if self.poster.tracks is None:
             raise PosterError("No tracks to draw.")
         if self.poster.length_range_by_date is None:

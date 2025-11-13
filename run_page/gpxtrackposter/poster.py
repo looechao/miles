@@ -113,7 +113,8 @@ class Poster:
             height = height - 100
         d = svgwrite.Drawing(output, (f"{width}mm", f"{height}mm"))
         d.viewbox(0, 0, self.width, height)
-        d.add(d.rect((0, 0), (width, height), fill=self.colors["background"]))
+        # Background rect removed for transparent background
+        # d.add(d.rect((0, 0), (width, height), fill=self.colors["background"]))
         if not self.drawer_type == "plain":
             self.__draw_header(d)
             self.__draw_footer(d)

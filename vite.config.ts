@@ -1,7 +1,6 @@
 import process from 'node:process';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -29,7 +28,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    viteTsconfigPaths(),
     svgr({
       include: ['**/*.svg'],
       svgrOptions: {
@@ -89,8 +87,12 @@ export default defineConfig({
   define: {
     'import.meta.env.VERCEL': JSON.stringify(process.env.VERCEL),
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   build: {
     manifest: true,
+    modulePreload: false,
     outDir: './dist', // for user easy to use, vercel use default dir -> dist
     rollupOptions: {
       output: {

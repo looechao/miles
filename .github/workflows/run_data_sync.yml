@@ -99,6 +99,7 @@ jobs:
           path: |
             activities
             assets
+            !assets/index.tsx
             GPX_OUT
             TCX_OUT
             FIT_OUT

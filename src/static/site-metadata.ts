@@ -9,11 +9,6 @@ interface ISiteMetadataResult {
   }[];
 }
 
-const getBasePath = () => {
-  const baseUrl = import.meta.env.BASE_URL;
-  return baseUrl === '/' ? '' : baseUrl;
-};
-
 const data: ISiteMetadataResult = {
   siteTitle: "looechao's miles",
   siteUrl: 'https://looechao.github.io/miles/',
@@ -22,7 +17,7 @@ const data: ISiteMetadataResult = {
   navLinks: [
     {
       name: 'Summary',
-      url: `${getBasePath()}/summary`,
+      url: `${import.meta.env.BASE_URL}summary`,
     },
     {
       name: 'Blog',

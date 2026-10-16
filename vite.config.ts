@@ -1,8 +1,10 @@
 import process from 'node:process';
+import path from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import svgr from 'vite-plugin-svgr';
 import tailwindcss from '@tailwindcss/vite';
+import yaml from '@modyfi/vite-plugin-yaml';
+import svgr from 'vite-plugin-svgr';
 
 // The following are known larger packages or packages that can be loaded asynchronously.
 const individuallyPackages = [
@@ -13,12 +15,10 @@ const individuallyPackages = [
 ];
 
 const colorClassMapping: { [key: string]: string } = {
-  // Background
   '#1a1a1a': 'svg-color-bg',
   '#222': 'svg-color-bg',
   '#444': 'svg-color-inactive-cell',
   '#4dd2ff': 'svg-color-active-cell',
-  // Primary Text
   '#fff': 'svg-color-text',
   '#e1ed5e': 'svg-color-text',
 };
@@ -28,6 +28,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    yaml(),
     svgr({
       include: ['**/*.svg'],
       svgrOptions: {
@@ -51,7 +52,13 @@ export default defineConfig({
               fn: () => {
                 return {
                   element: {
-                    enter: (node) => {
+                    enter: (node: {
+                      attributes: {
+                        fill?: string;
+                        stroke?: string;
+                        class?: string;
+                      };
+                    }) => {
                       const fillColor = node.attributes.fill;
                       if (fillColor) {
                         const lowerCaseFill = fillColor.toLowerCase();
@@ -64,7 +71,6 @@ export default defineConfig({
                       if (strokeColor) {
                         const lowerCaseStroke = strokeColor.toLowerCase();
                         if (colorClassMapping[lowerCaseStroke]) {
-                          // If class already exists, append, otherwise set.
                           const existingClass = node.attributes.class || '';
                           const newClass = colorClassMapping[lowerCaseStroke];
                           if (!existingClass.includes(newClass)) {
@@ -83,17 +89,23 @@ export default defineConfig({
       },
     }),
   ],
-  base: process.env.PATH_PREFIX || '/',
+  base: process.env.PATH_PREFIX ? `${process.env.PATH_PREFIX}/` : '/',
   define: {
     'import.meta.env.VERCEL': JSON.stringify(process.env.VERCEL),
   },
   resolve: {
-    tsconfigPaths: true,
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@config': path.resolve(__dirname, 'config.yml'),
+      '@core': path.resolve(__dirname, './src/core'),
+      '@themes': path.resolve(__dirname, './src/themes'),
+      '@assets': path.resolve(__dirname, './assets'),
+    },
   },
   build: {
     manifest: true,
     modulePreload: false,
-    outDir: './dist', // for user easy to use, vercel use default dir -> dist
+    outDir: './dist',
     rollupOptions: {
       output: {
         // Ensure file hashing for cache busting

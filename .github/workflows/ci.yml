@@ -27,10 +27,8 @@ jobs:
         run: |
           pip install -r requirements-dev.txt
 
-      - name: Run GPX sync test
-        run: |
-          # make sure the gpx_sync.py script is executable
-          python run_page/gpx_sync.py
+      - name: Test GPX sync, activity export, and route privacy
+        run: python -m pytest test_gpx_sync.py test_generator.py test_strava_web_sync.py -q
 
       - name: Check formatting (black)
         run: black . --diff --color && black . --check
@@ -69,3 +67,5 @@ jobs:
           pnpm run check
           pnpm run lint
           pnpm run build
+        env:
+          VITE_MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}

@@ -29,11 +29,12 @@ function toDisplayType(type: string): 'Run' | 'Ride' | 'Hike' | 'Training' {
   return 'Training';
 }
 
+const GRAY_PALETTE = [1, 2, 3, 4].map((level) => `var(--color-heat-${level})`);
 const TYPE_PALETTES: Record<string, string[]> = {
-  Run: ['#fed7aa', '#fb923c', '#f97316', '#ea580c'],
-  Ride: ['#bfdbfe', '#60a5fa', '#3b82f6', '#2563eb'],
-  Hike: ['#bbf7d0', '#4ade80', '#22c55e', '#16a34a'],
-  Training: ['#fce7f3', '#f9a8d4', '#ec4899', '#db2777'],
+  Run: GRAY_PALETTE,
+  Ride: GRAY_PALETTE,
+  Hike: GRAY_PALETTE,
+  Training: GRAY_PALETTE,
 };
 
 // Color for single-filter modes (intensity by global max)
@@ -41,11 +42,11 @@ function getColor(distance: number, max: number, filter: SportFilter): string {
   if (distance === 0) return 'var(--color-border)';
   const level = Math.ceil(Math.min(distance / max, 1) * 4);
   const colors: Record<string, string[]> = {
-    all: ['#eef2bd', '#dce68a', '#b7c64b', '#879629'],
+    all: GRAY_PALETTE,
     Run: TYPE_PALETTES.Run,
     Ride: TYPE_PALETTES.Ride,
     Hike: TYPE_PALETTES.Hike,
-    Gym: ['#cffafe', '#67e8f9', '#0891b2', '#155e75'],
+    Gym: GRAY_PALETTE,
   };
   const palette = colors[filter] ?? colors.all;
   return palette[level - 1] ?? palette[0];
@@ -287,10 +288,10 @@ export const ContributionHeatmap = memo(function ContributionHeatmap({
   }, [activities, selectedYear, isGym]);
 
   const gymTypeColors: Record<string, string> = {
-    WeightTraining: '#f97316',
-    Workout: '#0e7490',
-    StairStepper: '#3b82f6',
-    WaterSport: '#06b6d4',
+    WeightTraining: 'var(--color-run)',
+    Workout: 'var(--color-run)',
+    StairStepper: 'var(--color-run)',
+    WaterSport: 'var(--color-run)',
   };
 
   const heatmapTitle =

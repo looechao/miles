@@ -90,3 +90,11 @@ const themes = {
 | `@/config` | `MAPBOX_TOKEN`、`AVATAR`、`GOALS`、`DEFAULT_LOCALE`、`THEME_PRESET` |
 
 Dashboard 主题的组件 (`src/components/`) 也可复用 —— 如需要可在自定义主题中导入。
+
+## Miles Dashboard 配色
+
+Miles 默认使用 Dashboard、英文和浅色模式。灰阶、热力图与长距离轨迹的配色集中在 `src/themes/dashboard/index.css`，深色模式使用对应的灰阶。
+
+保留 `@theme static`：热力图在运行时组合 CSS 变量名称，构建时不能裁剪这些变量。地图轨迹通过 Mapbox paint 属性设置颜色，需要同时维护浅色与深色值。
+
+GitHub Pages 发布使用 `/miles/` 路径和 `VITE_MAPBOX_TOKEN` Secret，并从数据缓存恢复活动。缓存必须排除 `assets/index.tsx`，避免恢复的数据覆盖代码入口。

@@ -1,3 +1,4 @@
+import getSiteMetadata from '../core/hooks/useSiteMetadata';
 import type { Activity } from '../types';
 import { useLocale } from '../hooks/useLocale';
 
@@ -13,6 +14,7 @@ interface HeaderProps {
 
 export function Header({ dark, toggleTheme, page, onNavigate }: HeaderProps) {
   const { locale, setLocale, t } = useLocale();
+  const { siteTitle } = getSiteMetadata();
 
   const navItems: { label: string; page: Page }[] = [
     { label: t('home'), page: 'home' },
@@ -31,7 +33,7 @@ export function Header({ dark, toggleTheme, page, onNavigate }: HeaderProps) {
           title={locale === 'zh' ? '回到首页' : 'Go to home'}
           className="cursor-pointer border-0 bg-transparent p-0 text-xl font-bold text-[var(--color-text)]"
         >
-          RUNNING<span className="text-[var(--color-run)]">.</span>PAGE
+          {siteTitle}
         </button>
 
         {/* Right nav */}

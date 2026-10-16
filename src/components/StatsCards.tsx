@@ -303,7 +303,7 @@ export const StatsCards = memo(function StatsCards({
     if (acts.length === 0) return '';
     const sorted = [...acts].sort((a, b) => b.distance - a.distance);
     const type = sorted[0].type;
-    if (type === 'Run') return '#f97316';
+    if (type === 'Run') return 'var(--color-run)';
     return 'var(--color-text)';
   }
 
@@ -560,7 +560,7 @@ export const StatsCards = memo(function StatsCards({
           <div className="flex shrink-0 flex-col items-center gap-0">
             <div className="relative h-9 w-9">
               <svg
-                className="h-9 w-9 text-[#f97316]"
+                className="h-9 w-9 text-[var(--color-run)]"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >

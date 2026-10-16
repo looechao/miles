@@ -32,6 +32,9 @@ jobs:
           # make sure the gpx_sync.py script is executable
           python run_page/gpx_sync.py
 
+      - name: Test activity export and route privacy
+        run: python -m pytest test_generator.py test_strava_web_sync.py -q
+
       - name: Check formatting (black)
         run: black . --diff --color && black . --check
 

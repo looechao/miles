@@ -18,7 +18,7 @@
 
         // Apply theme before first paint (mirrors src/core/theme.tsx).
         try {
-          var theme = localStorage.getItem('theme') || 'dark';
+          var theme = localStorage.getItem('theme') || 'light';
           if (theme !== 'light' && theme !== 'dark') {
             theme = window.matchMedia('(prefers-color-scheme: dark)').matches
               ? 'dark'
@@ -30,8 +30,8 @@
           root.setAttribute('data-theme', theme);
           root.style.colorScheme = theme;
         } catch (e) {
-          document.documentElement.classList.add('dark');
-          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.classList.add('light');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       })();
     </script>
@@ -54,7 +54,7 @@
     </style>
     <link rel="icon" type="image/png" href="%BASE_URL%/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Running Page</title>
+    <title>looechao's miles</title>
   </head>
   <body>
     <div id="root"></div>

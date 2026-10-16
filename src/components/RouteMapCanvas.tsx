@@ -133,25 +133,18 @@ export function RouteMapCanvas({
         source: 'routes',
         layout: { 'line-cap': 'round', 'line-join': 'round' },
         paint: {
-          'line-color': [
-            'match',
-            ['get', 'type'],
-            'Run',
-            '#f97316',
-            'Ride',
-            '#3b82f6',
-            '#4dd2ff',
-          ],
+          'line-color': dark ? '#d4d4d4' : '#666666',
         },
       });
     }
+    map.setPaintProperty('routes', 'line-color', dark ? '#d4d4d4' : '#666666');
     map.setPaintProperty('routes', 'line-width', selectedActivity ? 3.5 : 2);
     map.setPaintProperty('routes', 'line-opacity', selectedActivity ? 1 : 0.7);
     if (fittedRef.current !== routes) {
       fittedRef.current = routes;
       fitRoutes();
     }
-  }, [routes, selectedActivity, fitRoutes]);
+  }, [routes, selectedActivity, fitRoutes, dark]);
 
   useEffect(() => {
     if (!containerRef.current || !panelRef.current) return;

@@ -2,20 +2,31 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-bg: #f5f5f5;
+@theme static {
+  --color-bg: #fafafa;
   --color-card: #ffffff;
-  --color-border: #d4d4d4;
-  --color-text: #1f2328;
-  --color-muted: #626262;
-  --color-run: #f97316;
+  --color-border: #e2e2e2;
+  --color-text: #444444;
+  --color-muted: #737373;
+  --color-run: #666666;
+  --color-heat-1: #cccccc;
+  --color-heat-2: #aaaaaa;
+  --color-heat-3: #8a8a8a;
+  --color-heat-4: #666666;
+  --color-route-long: #333333;
   --color-on-accent: #ffffff;
-  --color-all: #0c4a6e;
+  --color-all: #666666;
   --color-accent: var(--color-all);
 }
 
 .dark {
-  --color-all: #ceff00;
+  --color-run: #d4d4d4;
+  --color-heat-1: #525252;
+  --color-heat-2: #737373;
+  --color-heat-3: #a3a3a3;
+  --color-heat-4: #d4d4d4;
+  --color-route-long: #eeeeee;
+  --color-all: #d4d4d4;
   --color-on-accent: #171717;
   --color-bg: #171717;
   --color-card: #202020;
@@ -28,11 +39,11 @@
   --color-accent: var(--color-all);
 }
 [data-filter='Run'] {
-  --color-accent: #f97316;
-  --color-on-accent: #171717;
+  --color-accent: var(--color-run);
 }
 
 body {
+  font-variant-numeric: tabular-nums;
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family:

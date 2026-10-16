@@ -26,7 +26,9 @@ import uuid
 import pytz
 import requests
 from config import BASE_TIMEZONE, JSON_FILE, SQL_FILE, run_map, start_point
+from generator import IGNORE_BEFORE_SAVING
 from generator.db import init_db, update_or_create_activity
+from polyline_processor import filter_out
 from stravaweblib import WebClient
 
 logger = logging.getLogger(__name__)
@@ -205,6 +207,8 @@ def _sync_one(client, session, raw):
         # abort the whole sync; fall back to the list-only activity.
         print(f"  streams fail {aid}: {e}")
     act = WebActivity(raw, streams)
+    if IGNORE_BEFORE_SAVING and act.map.summary_polyline:
+        act.map = run_map(filter_out(act.map.summary_polyline))
     created = update_or_create_activity(session, act)
     session.commit()
     sys.stdout.write("+" if created else ".")
